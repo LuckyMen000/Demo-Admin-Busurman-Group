@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Вход — Админ-панель сайта</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=5.0.0">
+  <script src="app.js?v=5.0.0" defer></script>
 </head>
 <body data-page="login" class="login-page">
   <main class="login-wrap">
@@ -17,12 +17,13 @@
       <p class="muted">Демонстрационный вход для просмотра структуры и сценариев управления сайтом.</p>
       <form id="loginForm" novalidate>
         <label class="field"><span>Электронная почта</span>
-          <input id="loginEmail" name="email" type="email" autocomplete="username" placeholder="admin@demo.local" required>
+          <input id="loginEmail" name="email" type="email" autocomplete="username" inputmode="email" placeholder="admin@demo.local" aria-describedby="loginError" required>
         </label>
         <label class="field"><span>Пароль</span>
-          <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Введите пароль" required>
+          <span class="password-input-wrap"><input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Введите пароль" aria-describedby="loginError" required>
+          <button class="password-toggle" type="button" id="passwordToggle" aria-controls="loginPassword" aria-pressed="false">Показать</button></span>
         </label>
-        <div id="loginError" class="form-error" role="alert" aria-live="polite"></div>
+        <div id="loginError" class="form-error login-form-error" role="alert" aria-live="polite"></div>
         <button type="submit" class="btn btn-primary btn-full">Войти <span aria-hidden="true">→</span></button>
       </form>
       <div class="demo-credentials">

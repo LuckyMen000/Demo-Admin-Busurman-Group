@@ -119,6 +119,7 @@
 
   let data, view = {route:'overview',search:'',filters:{},tab:'blocks',eventMode:'table',leadMode:'table',calendarMonth:'2026-11',previewType:'program',previewId:'batyr-joly',previewDevice:'mobile',analyticsPeriod:'all',libraryFilter:'all'};
   let toastTimer;
+  let animateRouteChange=false;
 
   function start() {
     if(document.body.dataset.page === 'login') {initLogin(); return;}
@@ -131,6 +132,8 @@
     document.getElementById('menuToggle').addEventListener('click',toggleMenu);
     document.getElementById('mobileBackdrop').addEventListener('click',closeMenu);
     window.addEventListener('hashchange',routeChanged);
+    window.addEventListener('popstate',routeChanged);
+    document.addEventListener('click',onNavigationClick);
     document.addEventListener('click',onClick);
     document.addEventListener('change',onChange);
     document.addEventListener('input',onInput);
@@ -142,31 +145,138 @@
   function initLogin() {
     if(localStorage.getItem(SESSION_KEY)==='active') {window.location.replace('index.html');return;}
     const form=document.getElementById('loginForm');
+    const emailInput=document.getElementById('loginEmail');
+    const passwordInput=document.getElementById('loginPassword');
+    const error=document.getElementById('loginError');
+    const showError=(message,field)=>{
+      error.textContent=message;
+      emailInput.setAttribute('aria-invalid',String(field===emailInput));
+      passwordInput.setAttribute('aria-invalid',String(field===passwordInput));
+      if(field) field.focus();
+    };
+    [emailInput,passwordInput].forEach(field=>field.addEventListener('input',()=>{
+      error.textContent='';
+      emailInput.removeAttribute('aria-invalid');
+      passwordInput.removeAttribute('aria-invalid');
+    }));
+    const toggle=document.getElementById('passwordToggle');
+    toggle?.addEventListener('click',()=>{
+      const shown=passwordInput.type==='text';
+      passwordInput.type=shown?'password':'text';
+      toggle.textContent=shown?'Показать':'Скрыть';
+      toggle.setAttribute('aria-pressed',String(!shown));
+    });
     form.addEventListener('submit',e=>{
       e.preventDefault();
-      const email=document.getElementById('loginEmail').value.trim();
-      const pass=document.getElementById('loginPassword').value;
-      const error=document.getElementById('loginError');
-      if(email==='admin@demo.local' && pass==='demo123') {
-        localStorage.setItem(SESSION_KEY,'active');window.location.assign('index.html?demo=1#/overview');
-      }else{error.textContent='Неверный демонстрационный логин или пароль.';}
+      // В демонстрации удаляем случайные пробелы по краям обоих полей.
+      // В реальной системе пароль не нормализуют таким способом.
+      const email=emailInput.value.trim().toLowerCase();
+      const password=passwordInput.value.trim();
+      emailInput.value=email;
+      passwordInput.value=password;
+      if(!email) {showError('Введите электронную почту.',emailInput);return;}
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {showError('Проверьте формат электронной почты.',emailInput);return;}
+      if(!password) {showError('Введите пароль. Одни пробелы не допускаются.',passwordInput);return;}
+      if(email==='admin@demo.local' && password==='demo123') {
+        localStorage.setItem(SESSION_KEY,'active');window.location.assign('index.html#/overview');
+      }else{
+        showError('Неверная электронная почта или пароль.',passwordInput);
+      }
     });
+  }
+
+  // v5: навигация раскрываемыми группами и кликабельными подразделами.
+  // Состояние раскрытых групп НЕ пересоздается во время render(),
+  // поэтому формы, модалки и выбор роли не закрывают меню.
+  const groupTabs = {
+    overview:{label:'Обзор'}, site:{label:'Сайт'}, media:{label:'Медиа'},
+    sales:{label:'Продажи'}, system:{label:'Система'}
+  };
+  const groupForRoute=route=>({
+    overview:'overview',site:'site',programs:'site',tariffs:'site',events:'site',community:'site',preview:'site',
+    media:'media',reviews:'media',library:'media',
+    leads:'sales',payments:'sales',analytics:'sales',
+    staff:'system',settings:'system'
+  })[route]||'overview';
+  let expandedNavGroup=null;
+
+  function expandNavGroup(group) {
+    expandedNavGroup=group;
+    document.querySelectorAll('[data-nav-section]').forEach(section=>{
+      const open=section.dataset.navSection===group;
+      section.classList.toggle('expanded',open);
+      const toggle=section.querySelector('[data-nav-toggle]');
+      const panel=section.querySelector('.nav-group-panel');
+      toggle.setAttribute('aria-expanded',String(open));
+      panel.setAttribute('aria-hidden',String(!open));
+      panel.inert=!open;
+    });
+  }
+
+  function setNavigationActive() {
+    const currentGroup=groupForRoute(view.route);
+    document.querySelectorAll('#sidebarNav a[data-route]').forEach(link=>{
+      const active=link.dataset.route===view.route;
+      link.classList.toggle('active',active);
+      if(active)link.setAttribute('aria-current','page');
+      else link.removeAttribute('aria-current');
+    });
+    document.querySelectorAll('[data-nav-section]').forEach(section=>{
+      section.classList.toggle('contains-active',section.dataset.navSection===currentGroup);
+    });
+    expandNavGroup(currentGroup==='overview'?null:currentGroup);
+  }
+
+  function navigateTo(route) {
+    const target='#/'+route;
+    // Мгновенный рендер без ожидания асинхронного hashchange.
+    if(window.location.hash!==target) {
+      try {history.pushState(null,'',target);}
+      catch(e) {window.location.hash=target;}
+    }
+    routeChanged();
+  }
+
+  function onNavigationClick(event) {
+    const toggle=event.target.closest('#sidebarNav [data-nav-toggle]');
+    if(toggle){
+      event.preventDefault();
+      const group=toggle.dataset.navToggle;
+      expandNavGroup(expandedNavGroup===group?null:group);
+      return;
+    }
+    const link=event.target.closest('#sidebarNav a[data-route]');
+    if(!link || event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
+    const target=link.getAttribute('href');
+    if(!target || !/^#\/[a-z-]+$/.test(target))return;
+    event.preventDefault();
+    navigateTo(target.slice(2));
   }
 
   function routeChanged() {
     const key=(location.hash.replace(/^#\/?/,'') || 'overview').split('/')[0];
     const known=['overview','programs','tariffs','events','site','community','reviews','media','library','preview','leads','payments','analytics','staff','settings'];
-    view.route=known.includes(key)?key:'overview';view.search='';view.filters={};view.tab='blocks';
-    document.querySelectorAll('[data-route]').forEach(a=>a.classList.toggle('active',a.dataset.route===view.route));
+    view.route=known.includes(key)?key:'overview';
+    view.search='';view.filters={};view.tab='blocks';
+    setNavigationActive();
+    animateRouteChange=true;
     closeMenu();render();
     window.scrollTo(0,0);
   }
 
   function render() {
-    const names={overview:'Обзор',programs:'Программы и цены',events:'События и места',site:'Контент сайта',community:'Сообщество',reviews:'Видеоотзывы',media:'Медиа',leads:'Заявки',payments:'Оплаты',tariffs:'Тарифы и предоплаты',library:'Медиабиблиотека',preview:'Предпросмотр',analytics:'Аналитика и отчёты',staff:'Сотрудники и роли',settings:'Настройки'};
-    document.getElementById('currentPageName').textContent=names[view.route];
+    const names={overview:'Обзор',programs:'Программы',events:'События',site:'Страницы сайта',community:'Сообщество',reviews:'Видеоотзывы',media:'Материалы',leads:'Заявки',payments:'Оплаты',tariffs:'Тарифы',library:'Библиотека',preview:'Предпросмотр',analytics:'Аналитика',staff:'Команда',settings:'Настройки'};
+    const group=groupForRoute(view.route);
+    document.getElementById('currentPageName').textContent=group==='overview'?'Обзор':groupTabs[group].label+' / '+names[view.route];
     const views={overview:renderOverview,programs:renderPrograms,events:renderEvents,site:renderSite,community:renderCommunity,reviews:renderReviews,media:renderMedia,leads:renderLeads,payments:renderPayments,tariffs:renderTariffs,library:renderLibrary,preview:renderPreview,analytics:renderAnalytics,staff:renderStaff,settings:renderSettings};
-    document.getElementById('mainContent').innerHTML=views[view.route]();
+    const main=document.getElementById('mainContent');
+    main.innerHTML=views[view.route]();
+    if(animateRouteChange) {
+      main.classList.remove('route-enter');
+      void main.offsetWidth;
+      main.classList.add('route-enter');
+      animateRouteChange=false;
+    }
   }
   function save(message='Изменения сохранены локально') {try{localStorage.setItem(DATA_KEY,JSON.stringify(data));}catch(e){toast('Недостаточно места для сохранения.');return;}syncRoleSwitcher();render();toast(message);}
   function toast(message) {const el=document.getElementById('toast');el.textContent=message;el.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('visible'),2800);}
@@ -194,7 +304,7 @@
   function renderPrograms() {
     let rows=filterRows(data.programs).filter(p=>!view.filters.template||view.filters.template===p.template);
     const body=rows.map(p=>`<tr><td class="cell-primary">${esc(p.name)}<div class="cell-detail">${esc(p.audience)}</div></td><td>${esc(p.duration)}</td><td>${tag(p.template)}</td><td>${esc(p.paymentModel)}</td><td>${money(p.price)}<div class="cell-detail">Предоплата: ${money(p.deposit)}</div></td><td>${tag(p.status)}</td><td><div class="row-actions">${btn('Редактировать','edit','programs',p.id,'btn-small','','edit')}${btn('Предпросмотр','program-preview','programs',p.id)}</div></td></tr>`).join('');
-    return pageHeading('Программы и цены','8 программ по ТЗ. Флагманы имеют собственные шаблоны, остальные — компактные.')+
+    return pageHeading('Программы','8 программ по ТЗ. Флагманы имеют собственные шаблоны, остальные — компактные.')+
       note('Цены в исходном ТЗ не утверждены. Незаполненные значения так и отображаются; введённые здесь данные сохраняются в браузере.')+
       filters('Поиск по названию, аудитории, формату',filterSelect('template','Шаблон',['Флагман','Специальный','Компактный']))+
       table(['Программа','Формат','Шаблон','Оплата','Цена / предоплата','Статус',''],body,rows.length);
@@ -259,7 +369,7 @@
     if(view.tab==='directions')content=`<div class="table-wrap"><table><thead><tr><th>Направление</th><th>Запрос человека</th><th>Рекомендации</th><th></th></tr></thead><tbody>${data.directions.map(d=>`<tr><td class="cell-primary">${esc(d.name)}</td><td class="td-wrap">${esc(d.problem)}</td><td>${esc(pname(d.programA))}${d.programB?`, ${esc(pname(d.programB))}`:''}</td><td>${btn('Править','edit','directions',d.id,'btn-small','','edit')}</td></tr>`).join('')}</tbody></table></div>`;
     if(view.tab==='stats')content=`<dl class="info-grid"><dt>Лет</dt><dd>${esc(data.siteStats.years)}</dd><dt>Участников</dt><dd>${esc(data.siteStats.participants)}</dd><dt>Городов</dt><dd>${esc(data.siteStats.cities)}</dd><dt>Стран</dt><dd>${esc(data.siteStats.countries)}</dd></dl><div class="divider"></div>${btn('Изменить показатели','edit-stats','','','btn-small','','edit')}`;
     if(view.tab==='pages')content=`<div class="preview-list">${[['Об Айдаре','История, регалии, компании, спорт, Астана и Кипр'],['Компаниям','Задачи команд, форматы, клиенты, запрос КП'],['События','Фильтры по городу и программе'],['Медиа','YouTube, подкасты, медитации'],['Сообщество','Проекты, клубы, капитаны, добрые дела'],['Магазин','Мерч (следующий этап)']].map(([title,detail])=>`<div class="preview-item"><div><strong>${esc(title)}</strong><small>${esc(detail)}</small></div>${tag('Страница по ТЗ')}</div>`).join('')}</div><p class="helper" style="margin-top:15px">Это карта разделов, а не полноценный редактор страниц. Точный состав полей CMS должен быть согласован отдельно.</p>`;
-    return pageHeading('Контент сайта','Структура главной страницы и редактирование ключевого контента.')+
+    return pageHeading('Страницы сайта','Структура главной страницы и редактирование ключевого контента.',btn('Предпросмотр','nav','','preview','btn-small','','eye'))+
       note('Контентная панель здесь — рабочее предположение для прототипа. ТЗ прямо требует редактирование событий, цен, мест, отзывов и видео без программиста.')+
       `<section class="card" style="padding:0"><div>${nav}</div><div style="padding:19px">${content}</div></section>`;
   }
@@ -288,7 +398,10 @@
   function syncRoleSwitcher(){
     const target=document.getElementById('roleSwitcher');if(!target)return;
     const list=data.staff.filter(x=>x.status==='Активен');
-    target.innerHTML=list.map(x=>`<option value="${esc(x.id)}">${esc(x.name)} · ${esc(x.role)}</option>`).join('');
+    target.innerHTML=list.map(x=>{
+      const duplicateRoles=list.filter(y=>y.role===x.role).length>1;
+      return `<option value="${esc(x.id)}">${esc(duplicateRoles?x.name:x.role)}</option>`;
+    }).join('');
     target.value=currentEmployee().id;
   }
   function permitted(entity){
@@ -488,7 +601,7 @@
     const b=event.target.closest('[data-action]'); if(!b)return;
     event.preventDefault();
     const {action,entity,id,value}=b.dataset;
-    if(action==='nav') {location.hash=`#/${id}`;return;}
+    if(action==='nav') {navigateTo(id);return;}
     if(action==='event-mode'){view.eventMode=id;render();return;}
     if(action==='lead-mode'){view.leadMode=id;render();return;}
     if(action==='calendar-prev'){moveCalendar(-1);return;}
@@ -501,7 +614,7 @@
     if(action==='lead-edit'){if(restricted('leads'))return;openEditor('leads',id);return;}
     if(action==='preview-device'){view.previewDevice=id;render();return;}
     if(action==='export-analytics'){exportAnalytics();return;}
-    if(action==='program-preview'){view.previewType='program';view.previewId=id;location.hash='#/preview';render();return;}
+    if(action==='program-preview'){view.previewType='program';view.previewId=id;navigateTo('preview');return;}
 
     if(action==='logout'){localStorage.removeItem(SESSION_KEY);location.assign('login.html');return;}
     if(action==='tab'){view.tab=id;render();return;}

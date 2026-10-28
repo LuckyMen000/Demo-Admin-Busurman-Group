@@ -1,88 +1,115 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
-  <title>Админ-панель — Прототип</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="app.js" defer></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<title>Админ-панель — Прототип</title>
+<link href="style.css?v=5.0.0" rel="stylesheet"/>
+<script defer="" src="app.js?v=5.0.0"></script>
 </head>
 <body data-page="admin">
-  <svg aria-hidden="true" class="icon-sprite" xmlns="http://www.w3.org/2000/svg">
-    <symbol id="icon-tags" viewBox="0 0 24 24"><path d="M4 5h10l6 6-9 9-7-7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="9" cy="9" r="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
-    <symbol id="icon-images" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="9" r="1.4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m5 17 4.5-4.5 3 3L15 13l4 4" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 20V11h4v9M10 20V5h4v15M16 20v-8h4v8M3 20h18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12.5 11 15l4.5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="icon-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 9.5V20h13V9.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 20v-6h5v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M5 4.5h10.5a3 3 0 0 1 3 3V19H8a3 3 0 0 0-3 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 4.5V21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 8h7M8 11.5h7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7.5 3.5v4M16.5 3.5v4M3.5 9.5h17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="icon-layout" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 9.5h17M10 9.5V20" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
-    <symbol id="icon-users" viewBox="0 0 24 24"><path d="M9 11a3.25 3.25 0 1 0 0-6.5A3.25 3.25 0 0 0 9 11Zm7 1a2.75 2.75 0 1 0 0-5.5A2.75 2.75 0 0 0 16 12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M13.5 19a4.5 4.5 0 0 1 7 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="icon-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m10 8.8 5.5 3.2L10 15.2Z" fill="currentColor"/></symbol>
-    <symbol id="icon-media" viewBox="0 0 24 24"><path d="M4 16V8a2 2 0 0 1 2-2h1.5a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2Zm11.5 1V7a1 1 0 0 1 1-1H18a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-1.5a1 1 0 0 1-1-1Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 8.5a6 6 0 0 1 7 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="icon-inbox" viewBox="0 0 24 24"><path d="M4.5 8.5 7 5h10l2.5 3.5V18a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4.5 13h4l1.5 2h4l1.5-2h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-card" viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M7 14.5h3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M12 8.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 0 0 12 8.5Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 13.2a1 1 0 0 0 .2 1.1l.1.1a1.8 1.8 0 0 1 0 2.5l-.2.2a1.8 1.8 0 0 1-2.5 0l-.1-.1a1 1 0 0 0-1.1-.2 1 1 0 0 0-.6.9V18a1.8 1.8 0 0 1-1.8 1.8h-.8A1.8 1.8 0 0 1 10.8 18v-.2a1 1 0 0 0-.6-.9 1 1 0 0 0-1.1.2l-.1.1a1.8 1.8 0 0 1-2.5 0l-.2-.2a1.8 1.8 0 0 1 0-2.5l.1-.1a1 1 0 0 0 .2-1.1 1 1 0 0 0-.9-.6H5.5A1.8 1.8 0 0 1 3.7 11v-.8a1.8 1.8 0 0 1 1.8-1.8h.2a1 1 0 0 0 .9-.6 1 1 0 0 0-.2-1.1l-.1-.1a1.8 1.8 0 0 1 0-2.5l.2-.2a1.8 1.8 0 0 1 2.5 0l.1.1a1 1 0 0 0 1.1.2 1 1 0 0 0 .6-.9V3.9A1.8 1.8 0 0 1 12.6 2h.8a1.8 1.8 0 0 1 1.8 1.8V4a1 1 0 0 0 .6.9 1 1 0 0 0 1.1-.2l.1-.1a1.8 1.8 0 0 1 2.5 0l.2.2a1.8 1.8 0 0 1 0 2.5l-.1.1a1 1 0 0 0-.2 1.1 1 1 0 0 0 .9.6h.2a1.8 1.8 0 0 1 1.8 1.8v.8a1.8 1.8 0 0 1-1.8 1.8h-.2a1 1 0 0 0-.9.6Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
-    <symbol id="icon-close" viewBox="0 0 24 24"><path d="M6 6 18 18M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
-    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
-    <symbol id="icon-edit" viewBox="0 0 24 24"><path d="m4 16 10.5-10.5a2.1 2.1 0 0 1 3 0l1 1a2.1 2.1 0 0 1 0 3L8 20l-4 .5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M13 7l4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 10v7M12 10v7M16 10v7M7 7l1 12h8l1-12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4.2 4.2L19 6.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.8" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
-  </svg>
-
-  <div class="shell" id="shell">
-    <aside class="sidebar" id="sidebar" aria-label="Основная навигация">
-      <div class="brand">
-        <div class="brand-name">BUSURMAN GROUP</div>
-        <div class="brand-subtitle">Администрирование сайта</div>
-      </div>
-      <nav id="sidebarNav">
-        <div class="nav-group-title">ОБЩЕЕ</div>
-        <a class="nav-link" href="#/overview" data-route="overview"><svg class="nav-icon" aria-hidden="true"><use href="#icon-home"></use></svg><span>Обзор</span></a>
-
-        <div class="nav-group-title">КОНТЕНТ</div>
-        <a class="nav-link" href="#/programs" data-route="programs"><svg class="nav-icon" aria-hidden="true"><use href="#icon-book"></use></svg><span>Программы и цены</span></a>
-        <a class="nav-link" href="#/tariffs" data-route="tariffs"><svg class="nav-icon" aria-hidden="true"><use href="#icon-tags"></use></svg><span>Тарифы и предоплаты</span></a>
-        <a class="nav-link" href="#/events" data-route="events"><svg class="nav-icon" aria-hidden="true"><use href="#icon-calendar"></use></svg><span>События и места</span></a>
-        <a class="nav-link" href="#/site" data-route="site"><svg class="nav-icon" aria-hidden="true"><use href="#icon-layout"></use></svg><span>Контент сайта</span></a>
-        <a class="nav-link" href="#/community" data-route="community"><svg class="nav-icon" aria-hidden="true"><use href="#icon-users"></use></svg><span>Сообщество</span></a>
-        <a class="nav-link" href="#/reviews" data-route="reviews"><svg class="nav-icon" aria-hidden="true"><use href="#icon-play"></use></svg><span>Видеоотзывы</span></a>
-        <a class="nav-link" href="#/media" data-route="media"><svg class="nav-icon" aria-hidden="true"><use href="#icon-media"></use></svg><span>Медиа</span></a>
-        <a class="nav-link" href="#/library" data-route="library"><svg class="nav-icon" aria-hidden="true"><use href="#icon-images"></use></svg><span>Медиабиблиотека</span></a>
-        <a class="nav-link" href="#/preview" data-route="preview"><svg class="nav-icon" aria-hidden="true"><use href="#icon-monitor"></use></svg><span>Предпросмотр</span></a>
-
-        <div class="nav-group-title">ЗАЯВКИ И ОПЛАТЫ</div>
-        <a class="nav-link" href="#/leads" data-route="leads"><svg class="nav-icon" aria-hidden="true"><use href="#icon-inbox"></use></svg><span>Заявки</span></a>
-        <a class="nav-link" href="#/payments" data-route="payments"><svg class="nav-icon" aria-hidden="true"><use href="#icon-card"></use></svg><span>Оплаты</span></a>
-
-        <div class="nav-group-title">АНАЛИТИКА</div>
-        <a class="nav-link" href="#/analytics" data-route="analytics"><svg class="nav-icon" aria-hidden="true"><use href="#icon-chart"></use></svg><span>Аналитика и отчёты</span></a>
-        <div class="nav-group-title">СИСТЕМА</div>
-        <a class="nav-link" href="#/staff" data-route="staff"><svg class="nav-icon" aria-hidden="true"><use href="#icon-shield"></use></svg><span>Сотрудники и роли</span></a>
-        <a class="nav-link" href="#/settings" data-route="settings"><svg class="nav-icon" aria-hidden="true"><use href="#icon-settings"></use></svg><span>Настройки</span></a>
-      </nav>
-      <div class="sidebar-footer">ТЗ v2 · 22.10.2026<br>Прототип интерфейса</div>
-    </aside>
-
-    <div class="workspace">
-      <header class="topbar">
-        <div class="topbar-left">
-          <button type="button" class="icon-button mobile-menu" id="menuToggle" aria-label="Открыть меню" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#icon-menu"></use></svg></button>
-          <span class="topbar-label">Система управления сайтом</span>
-          <span class="topbar-separator">/</span>
-          <span id="currentPageName">Обзор</span>
-        </div>
-        <div class="topbar-right"><span class="prototype-pill">ДЕМО</span><label class="role-picker"><span>Демо-роль</span><select id="roleSwitcher" aria-label="Демо-роль"></select></label><button class="btn btn-small" type="button" data-action="logout">Выйти</button></div>
-      </header>
-      <main class="content" id="mainContent" tabindex="-1"></main>
-    </div>
-    <div id="mobileBackdrop" class="mobile-backdrop" hidden></div>
-  </div>
-  <div id="modalRoot"></div>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+<svg aria-hidden="true" class="icon-sprite" xmlns="http://www.w3.org/2000/svg">
+<symbol id="icon-tags" viewbox="0 0 24 24"><path d="M4 5h10l6 6-9 9-7-7Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"></path><circle cx="9" cy="9" fill="none" r="1.5" stroke="currentColor" stroke-width="1.8"></circle></symbol>
+<symbol id="icon-images" viewbox="0 0 24 24"><rect fill="none" height="16" rx="2" stroke="currentColor" stroke-width="1.8" width="16" x="4" y="4"></rect><circle cx="9" cy="9" fill="none" r="1.4" stroke="currentColor" stroke-width="1.8"></circle><path d="m5 17 4.5-4.5 3 3L15 13l4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-chart" viewbox="0 0 24 24"><path d="M4 20V11h4v9M10 20V5h4v15M16 20v-8h4v8M3 20h18" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-shield" viewbox="0 0 24 24"><path d="m12 3 8 3v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V6Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"></path><path d="M9 12.5 11 15l4.5-5" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-monitor" viewbox="0 0 24 24"><rect fill="none" height="13" rx="2" stroke="currentColor" stroke-width="1.8" width="18" x="3" y="4"></rect><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-home" viewbox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path><path d="M5.5 9.5V20h13V9.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path><path d="M9.5 20v-6h5v6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-book" viewbox="0 0 24 24"><path d="M5 4.5h10.5a3 3 0 0 1 3 3V19H8a3 3 0 0 0-3 3Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path><path d="M5 4.5V21" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path><path d="M8 8h7M8 11.5h7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-calendar" viewbox="0 0 24 24"><rect fill="none" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8" width="17" x="3.5" y="5.5"></rect><path d="M7.5 3.5v4M16.5 3.5v4M3.5 9.5h17" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-layout" viewbox="0 0 24 24"><rect fill="none" height="16" rx="2.5" stroke="currentColor" stroke-width="1.8" width="17" x="3.5" y="4"></rect><path d="M3.5 9.5h17M10 9.5V20" fill="none" stroke="currentColor" stroke-width="1.8"></path></symbol>
+<symbol id="icon-users" viewbox="0 0 24 24"><path d="M9 11a3.25 3.25 0 1 0 0-6.5A3.25 3.25 0 0 0 9 11Zm7 1a2.75 2.75 0 1 0 0-5.5A2.75 2.75 0 0 0 16 12Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path><path d="M3.5 19a5.5 5.5 0 0 1 11 0M13.5 19a4.5 4.5 0 0 1 7 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-play" viewbox="0 0 24 24"><circle cx="12" cy="12" fill="none" r="8.5" stroke="currentColor" stroke-width="1.8"></circle><path d="m10 8.8 5.5 3.2L10 15.2Z" fill="currentColor"></path></symbol>
+<symbol id="icon-media" viewbox="0 0 24 24"><path d="M4 16V8a2 2 0 0 1 2-2h1.5a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2Zm11.5 1V7a1 1 0 0 1 1-1H18a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-1.5a1 1 0 0 1-1-1Z" fill="none" stroke="currentColor" stroke-width="1.8"></path><path d="M8.5 8.5a6 6 0 0 1 7 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-inbox" viewbox="0 0 24 24"><path d="M4.5 8.5 7 5h10l2.5 3.5V18a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"></path><path d="M4.5 13h4l1.5 2h4l1.5-2h4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-card" viewbox="0 0 24 24"><rect fill="none" height="12" rx="2.5" stroke="currentColor" stroke-width="1.8" width="17" x="3.5" y="6"></rect><path d="M3.5 10h17M7 14.5h3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-settings" viewbox="0 0 24 24"><path d="M12 8.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 0 0 12 8.5Z" fill="none" stroke="currentColor" stroke-width="1.8"></path><path d="M19.4 13.2a1 1 0 0 0 .2 1.1l.1.1a1.8 1.8 0 0 1 0 2.5l-.2.2a1.8 1.8 0 0 1-2.5 0l-.1-.1a1 1 0 0 0-1.1-.2 1 1 0 0 0-.6.9V18a1.8 1.8 0 0 1-1.8 1.8h-.8A1.8 1.8 0 0 1 10.8 18v-.2a1 1 0 0 0-.6-.9 1 1 0 0 0-1.1.2l-.1.1a1.8 1.8 0 0 1-2.5 0l-.2-.2a1.8 1.8 0 0 1 0-2.5l.1-.1a1 1 0 0 0 .2-1.1 1 1 0 0 0-.9-.6H5.5A1.8 1.8 0 0 1 3.7 11v-.8a1.8 1.8 0 0 1 1.8-1.8h.2a1 1 0 0 0 .9-.6 1 1 0 0 0-.2-1.1l-.1-.1a1.8 1.8 0 0 1 0-2.5l.2-.2a1.8 1.8 0 0 1 2.5 0l.1.1a1 1 0 0 0 1.1.2 1 1 0 0 0 .6-.9V3.9A1.8 1.8 0 0 1 12.6 2h.8a1.8 1.8 0 0 1 1.8 1.8V4a1 1 0 0 0 .6.9 1 1 0 0 0 1.1-.2l.1-.1a1.8 1.8 0 0 1 2.5 0l.2.2a1.8 1.8 0 0 1 0 2.5l-.1.1a1 1 0 0 0-.2 1.1 1 1 0 0 0 .9.6h.2a1.8 1.8 0 0 1 1.8 1.8v.8a1.8 1.8 0 0 1-1.8 1.8h-.2a1 1 0 0 0-.9.6Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"></path></symbol>
+<symbol id="icon-menu" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.9"></path></symbol>
+<symbol id="icon-close" viewbox="0 0 24 24"><path d="M6 6 18 18M18 6 6 18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.9"></path></symbol>
+<symbol id="icon-plus" viewbox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.9"></path></symbol>
+<symbol id="icon-edit" viewbox="0 0 24 24"><path d="m4 16 10.5-10.5a2.1 2.1 0 0 1 3 0l1 1a2.1 2.1 0 0 1 0 3L8 20l-4 .5Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"></path><path d="M13 7l4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-trash" viewbox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M8 10v7M12 10v7M16 10v7M7 7l1 12h8l1-12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></symbol>
+<symbol id="icon-check" viewbox="0 0 24 24"><path d="m5 12 4.2 4.2L19 6.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></symbol>
+<symbol id="icon-eye" viewbox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"></path><circle cx="12" cy="12" fill="none" r="2.8" stroke="currentColor" stroke-width="1.8"></circle></symbol>
+<symbol fill="none" id="icon-file-text" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M14 2.5H6a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-11Z"></path><path d="M14 2.5v6h6M8 13h8M8 17h6"></path></symbol><symbol fill="none" id="icon-graduation-cap" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m2.5 9 9.5-5 9.5 5-9.5 5Z"></path><path d="M6.5 11.5v5c3.1 2.7 7.9 2.7 11 0v-5M21.5 9v7"></path></symbol><symbol fill="none" id="icon-calendar-range" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="16" rx="2" width="17" x="3.5" y="5"></rect><path d="M7.5 3v4M16.5 3v4M3.5 10h17M8 14h3M13 14h3M8 18h3"></path></symbol><symbol fill="none" id="icon-clapperboard" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="15" rx="2" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M7 5l-3.5 5M13.5 5 10 10M20 5l-3.5 5M10 13l5 2.8-5 2.7Z"></path></symbol><symbol fill="none" id="icon-message-square-quote" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M5 4.5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5.5 3v-15a2 2 0 0 1 1.5-2Z"></path><path d="M8 9h3v3H8ZM14 9h3v3h-3Z"></path></symbol><symbol fill="none" id="icon-files" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="14" rx="2" width="13" x="7" y="7"></rect><path d="M17 7V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h1"></path></symbol><symbol fill="none" id="icon-user-round" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></symbol><symbol fill="none" id="icon-chart-line" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M3 3v18h18M7 15l4-4 3 2 6-7"></path><path d="M17 6h3v3"></path></symbol><symbol fill="none" id="icon-user-cog" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="9.5" cy="8" r="3.5"></circle><path d="M3 20a6.5 6.5 0 0 1 10-5.5"></path><circle cx="18" cy="17" r="2.2"></circle><path d="M18 12.5v1M18 20.5v1M13.5 17h1M21.5 17h1M14.8 13.8l.7.7M20.5 19.5l.7.7M21.2 13.8l-.7.7M15.5 19.5l-.7.7"></path></symbol><symbol fill="none" id="icon-chevron-down" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></symbol><symbol fill="none" id="icon-log-out" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M14 8l4 4-4 4M8 12h10"></path></symbol></svg>
+<div class="shell" id="shell">
+<aside aria-label="Основная навигация" class="sidebar" id="sidebar">
+<div class="brand">
+<div class="brand-name">BUSURMAN GROUP</div>
+<div class="brand-subtitle">Администрирование сайта</div>
+</div>
+<nav aria-label="Основная навигация админ-панели" id="sidebarNav">
+<a class="nav-link nav-overview" data-route="overview" href="#/overview"><svg aria-hidden="true" class="nav-icon"><use href="#icon-home"></use></svg><span>Обзор</span></a>
+<section class="nav-section" data-nav-section="site">
+<button aria-controls="nav-panel-site" aria-expanded="false" class="nav-group-toggle" data-nav-toggle="site" type="button">
+<svg aria-hidden="true" class="nav-icon"><use href="#icon-layout"></use></svg><span class="nav-section-title">Сайт</span><svg aria-hidden="true" class="nav-chevron"><use href="#icon-chevron-down"></use></svg>
+</button>
+<div aria-hidden="true" class="nav-group-panel" id="nav-panel-site" inert="">
+<div class="nav-panel-inner"><div class="nav-subnav">
+<a class="nav-link nav-child" data-route="site" href="#/site"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-file-text"></use></svg><span>Страницы</span></a>
+<a class="nav-link nav-child" data-route="programs" href="#/programs"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-graduation-cap"></use></svg><span>Программы</span></a>
+<a class="nav-link nav-child" data-route="tariffs" href="#/tariffs"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-tags"></use></svg><span>Тарифы</span></a>
+<a class="nav-link nav-child" data-route="events" href="#/events"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-calendar-range"></use></svg><span>События</span></a>
+<a class="nav-link nav-child" data-route="community" href="#/community"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-users"></use></svg><span>Сообщество</span></a>
+<a class="nav-link nav-child" data-route="preview" href="#/preview"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-monitor"></use></svg><span>Предпросмотр</span></a>
+</div></div>
+</div>
+</section>
+<section class="nav-section" data-nav-section="media">
+<button aria-controls="nav-panel-media" aria-expanded="false" class="nav-group-toggle" data-nav-toggle="media" type="button">
+<svg aria-hidden="true" class="nav-icon"><use href="#icon-media"></use></svg><span class="nav-section-title">Медиа</span><svg aria-hidden="true" class="nav-chevron"><use href="#icon-chevron-down"></use></svg>
+</button>
+<div aria-hidden="true" class="nav-group-panel" id="nav-panel-media" inert="">
+<div class="nav-panel-inner"><div class="nav-subnav">
+<a class="nav-link nav-child" data-route="media" href="#/media"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-clapperboard"></use></svg><span>Материалы</span></a>
+<a class="nav-link nav-child" data-route="reviews" href="#/reviews"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-message-square-quote"></use></svg><span>Видеоотзывы</span></a>
+<a class="nav-link nav-child" data-route="library" href="#/library"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-images"></use></svg><span>Библиотека</span></a>
+</div></div>
+</div>
+</section>
+<section class="nav-section" data-nav-section="sales">
+<button aria-controls="nav-panel-sales" aria-expanded="false" class="nav-group-toggle" data-nav-toggle="sales" type="button">
+<svg aria-hidden="true" class="nav-icon"><use href="#icon-inbox"></use></svg><span class="nav-section-title">Продажи</span><svg aria-hidden="true" class="nav-chevron"><use href="#icon-chevron-down"></use></svg>
+</button>
+<div aria-hidden="true" class="nav-group-panel" id="nav-panel-sales" inert="">
+<div class="nav-panel-inner"><div class="nav-subnav">
+<a class="nav-link nav-child" data-route="leads" href="#/leads"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-user-round"></use></svg><span>Заявки</span></a>
+<a class="nav-link nav-child" data-route="payments" href="#/payments"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-card"></use></svg><span>Оплаты</span></a>
+<a class="nav-link nav-child" data-route="analytics" href="#/analytics"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-chart-line"></use></svg><span>Аналитика</span></a>
+</div></div>
+</div>
+</section>
+<section class="nav-section" data-nav-section="system">
+<button aria-controls="nav-panel-system" aria-expanded="false" class="nav-group-toggle" data-nav-toggle="system" type="button">
+<svg aria-hidden="true" class="nav-icon"><use href="#icon-settings"></use></svg><span class="nav-section-title">Система</span><svg aria-hidden="true" class="nav-chevron"><use href="#icon-chevron-down"></use></svg>
+</button>
+<div aria-hidden="true" class="nav-group-panel" id="nav-panel-system" inert="">
+<div class="nav-panel-inner"><div class="nav-subnav">
+<a class="nav-link nav-child" data-route="staff" href="#/staff"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-user-cog"></use></svg><span>Команда</span></a>
+<a class="nav-link nav-child" data-route="settings" href="#/settings"><svg aria-hidden="true" class="nav-child-icon"><use href="#icon-settings"></use></svg><span>Настройки</span></a>
+</div></div>
+</div>
+</section>
+</nav>
+<div class="sidebar-footer">Прототип интерфейса · v5.0</div>
+</aside>
+<div class="workspace">
+<header class="topbar">
+<div class="topbar-left">
+<button aria-expanded="false" aria-label="Открыть меню" class="icon-button mobile-menu" id="menuToggle" type="button"><svg aria-hidden="true" class="icon"><use href="#icon-menu"></use></svg></button>
+<span class="topbar-label">Система управления сайтом</span>
+<span class="topbar-separator">/</span>
+<span id="currentPageName">Обзор</span>
+</div>
+<div class="topbar-right"><span class="prototype-pill">ДЕМО</span><label class="role-picker"><span>Демо-роль</span><select aria-label="Демо-роль" id="roleSwitcher"></select></label><button class="btn btn-small" data-action="logout" type="button">Выйти</button></div>
+</header>
+<main class="content" id="mainContent" tabindex="-1"></main>
+</div>
+<div class="mobile-backdrop" hidden="" id="mobileBackdrop"></div>
+</div>
+<div id="modalRoot"></div>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
 </body>
 </html>
