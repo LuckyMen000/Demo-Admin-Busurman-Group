@@ -10,6 +10,11 @@
 </head>
 <body data-page="admin">
   <svg aria-hidden="true" class="icon-sprite" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-tags" viewBox="0 0 24 24"><path d="M4 5h10l6 6-9 9-7-7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="9" cy="9" r="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="icon-images" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="9" r="1.4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m5 17 4.5-4.5 3 3L15 13l4 4" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 20V11h4v9M10 20V5h4v15M16 20v-8h4v8M3 20h18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12.5 11 15l4.5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
     <symbol id="icon-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 9.5V20h13V9.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 20v-6h5v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="icon-book" viewBox="0 0 24 24"><path d="M5 4.5h10.5a3 3 0 0 1 3 3V19H8a3 3 0 0 0-3 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 4.5V21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 8h7M8 11.5h7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
     <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7.5 3.5v4M16.5 3.5v4M3.5 9.5h17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
@@ -41,17 +46,23 @@
 
         <div class="nav-group-title">КОНТЕНТ</div>
         <a class="nav-link" href="#/programs" data-route="programs"><svg class="nav-icon" aria-hidden="true"><use href="#icon-book"></use></svg><span>Программы и цены</span></a>
+        <a class="nav-link" href="#/tariffs" data-route="tariffs"><svg class="nav-icon" aria-hidden="true"><use href="#icon-tags"></use></svg><span>Тарифы и предоплаты</span></a>
         <a class="nav-link" href="#/events" data-route="events"><svg class="nav-icon" aria-hidden="true"><use href="#icon-calendar"></use></svg><span>События и места</span></a>
         <a class="nav-link" href="#/site" data-route="site"><svg class="nav-icon" aria-hidden="true"><use href="#icon-layout"></use></svg><span>Контент сайта</span></a>
         <a class="nav-link" href="#/community" data-route="community"><svg class="nav-icon" aria-hidden="true"><use href="#icon-users"></use></svg><span>Сообщество</span></a>
         <a class="nav-link" href="#/reviews" data-route="reviews"><svg class="nav-icon" aria-hidden="true"><use href="#icon-play"></use></svg><span>Видеоотзывы</span></a>
         <a class="nav-link" href="#/media" data-route="media"><svg class="nav-icon" aria-hidden="true"><use href="#icon-media"></use></svg><span>Медиа</span></a>
+        <a class="nav-link" href="#/library" data-route="library"><svg class="nav-icon" aria-hidden="true"><use href="#icon-images"></use></svg><span>Медиабиблиотека</span></a>
+        <a class="nav-link" href="#/preview" data-route="preview"><svg class="nav-icon" aria-hidden="true"><use href="#icon-monitor"></use></svg><span>Предпросмотр</span></a>
 
         <div class="nav-group-title">ЗАЯВКИ И ОПЛАТЫ</div>
         <a class="nav-link" href="#/leads" data-route="leads"><svg class="nav-icon" aria-hidden="true"><use href="#icon-inbox"></use></svg><span>Заявки</span></a>
         <a class="nav-link" href="#/payments" data-route="payments"><svg class="nav-icon" aria-hidden="true"><use href="#icon-card"></use></svg><span>Оплаты</span></a>
 
+        <div class="nav-group-title">АНАЛИТИКА</div>
+        <a class="nav-link" href="#/analytics" data-route="analytics"><svg class="nav-icon" aria-hidden="true"><use href="#icon-chart"></use></svg><span>Аналитика и отчёты</span></a>
         <div class="nav-group-title">СИСТЕМА</div>
+        <a class="nav-link" href="#/staff" data-route="staff"><svg class="nav-icon" aria-hidden="true"><use href="#icon-shield"></use></svg><span>Сотрудники и роли</span></a>
         <a class="nav-link" href="#/settings" data-route="settings"><svg class="nav-icon" aria-hidden="true"><use href="#icon-settings"></use></svg><span>Настройки</span></a>
       </nav>
       <div class="sidebar-footer">ТЗ v2 · 22.10.2026<br>Прототип интерфейса</div>
@@ -65,7 +76,7 @@
           <span class="topbar-separator">/</span>
           <span id="currentPageName">Обзор</span>
         </div>
-        <div class="topbar-right"><span class="prototype-pill">ДЕМО</span><span class="topbar-user">Администратор</span><button class="btn btn-small" type="button" data-action="logout">Выйти</button></div>
+        <div class="topbar-right"><span class="prototype-pill">ДЕМО</span><label class="role-picker"><span>Демо-роль</span><select id="roleSwitcher" aria-label="Демо-роль"></select></label><button class="btn btn-small" type="button" data-action="logout">Выйти</button></div>
       </header>
       <main class="content" id="mainContent" tabindex="-1"></main>
     </div>

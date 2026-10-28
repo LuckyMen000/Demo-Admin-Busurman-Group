@@ -194,3 +194,78 @@ tr:last-child td { border-bottom: 0; }
   .preview-item .btn { align-self: center; }
 }
 @media (max-width: 400px) { .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; } .stat-number { font-size: 23px; } .stat-foot { font-size: 10px; } .login-card { padding: 20px; } }
+
+/* Дополнительные интерфейсы v2 — те же нейтральные цвета и типографика. */
+.role-picker { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+.role-picker select { max-width: 240px; border: 1px solid var(--border); background: white; color: var(--ink); padding: 6px 7px; font-size: 12px; border-radius: 5px; }
+.mode-switch { display: flex; align-items: center; gap: 7px; margin-bottom: 15px; }
+.mode-switch .btn { padding: 7px 14px; }
+.calendar-scroll { overflow-x: auto; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7,minmax(110px,1fr)); border: 1px solid var(--border); min-width: 770px; }
+.calendar-head { padding: 10px; color: var(--muted); background: #f4f4f4; font-size: 12px; text-align: center; border-bottom: 1px solid var(--border); }
+.calendar-cell { min-height: 122px; border-top: 1px solid var(--border); border-right: 1px solid var(--border); padding: 8px; background: white; }
+.calendar-cell:nth-child(7n) { border-right: 0; }
+.calendar-empty { background: #fafafa; }
+.calendar-day { font-weight: 650; font-size: 12px; margin-bottom: 8px; }
+.calendar-event { display: block; text-align: left; font-size: 11px; white-space: normal; width: 100%; padding: 7px; background: #f0f0f0; border: 1px solid #dedede; border-radius: 5px; margin-bottom: 5px; color: #333; }
+.calendar-event:hover { background: #e4e4e4; }
+.calendar-event small { display: block; margin-top: 4px; color: #777; }
+.calendar-event.cancelled { opacity: .5; text-decoration: line-through; }
+.kanban { display: grid; grid-template-columns: repeat(4,minmax(190px,1fr)); align-items: start; gap: 12px; overflow-x: auto; }
+.kanban-col { background: #eee; padding: 11px; min-height: 300px; border: 1px solid #dedede; border-radius: 6px; }
+.kanban-header { display: flex; align-items: center; justify-content: space-between; padding: 4px 2px 12px; }
+.kanban-header span { background: white; border: 1px solid #ddd; padding: 1px 7px; border-radius: 20px; font-size: 12px; }
+.kanban-card { display: grid; gap: 5px; width: 100%; text-align: left; background: white; border: 1px solid #d6d6d6; border-radius: 6px; padding: 12px; margin-bottom: 8px; color: var(--ink); }
+.kanban-card:hover { border-color: #999; }
+.kanban-card small { color: var(--muted); }
+.modal-wide { width: min(900px,100%); }
+.profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.timeline { max-height: 275px; overflow-y: auto; border-left: 2px solid #e0e0e0; margin: 12px 0 17px 7px; }
+.timeline-item { padding: 0 0 14px 14px; position: relative; }
+.timeline-item::before { content: ''; position: absolute; left: -6px; top: 4px; width: 8px; height: 8px; border-radius: 50%; background: #999; }
+.timeline-item b { font-size: 12px; }
+.timeline-item p { color: var(--muted); font-size: 13px; margin: 4px 0 0; overflow-wrap: anywhere; }
+.note-form { padding-top: 5px; }
+.asset-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; margin-top: 16px; }
+.asset-card { padding: 0; overflow: hidden; }
+.asset-thumb { background: #f1f1f1; height: 150px; display: grid; place-items: center; overflow: hidden; border-bottom: 1px solid var(--border); }
+.asset-thumb .icon { width: 34px; height: 34px; color: #aaa; }
+.asset-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.asset-body { padding: 14px; }
+.asset-body strong { display: block; overflow-wrap: anywhere; }
+.asset-body p { margin: 6px 0; }
+.asset-body .row-actions { margin-top: 12px; flex-wrap: wrap; }
+.upload-control { cursor: pointer; }
+.preview-tools { display: flex; align-items: end; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+.preview-tools label { display: grid; gap: 7px; font-size: 12px; color: var(--muted); }
+.preview-tools select, .toolbar select, .toolbar label select { border: 1px solid #ccc; background: white; border-radius: 5px; padding: 8px 10px; color: #222; }
+.preview-tools select { min-width: 170px; max-width: 360px; }
+.preview-stage { min-height: 580px; display: flex; justify-content: center; align-items: flex-start; background: #ededed; padding: 24px; border: 1px solid var(--border); border-radius: 7px; overflow: auto; }
+.site-mock { background: white; border: 1px solid #d7d7d7; min-height: 480px; box-shadow: 0 8px 28px rgb(0 0 0 / .055); transition: width .2s; }
+.mock-phone { width: 360px; max-width: 100%; }
+.mock-desktop { width: 100%; max-width: 1040px; }
+.mock-bar { display: flex; justify-content: space-between; padding: 16px 22px; font-size: 11px; border-bottom: 1px solid #ddd; }
+.mock-hero { padding: 43px 23px; background: #eee; }
+.mock-hero h1 { font-size: clamp(24px,3vw,42px); max-width: 650px; }
+.mock-hero p { color: #555; }
+.mock-section { padding: 29px 23px; }
+.mock-section h3 { margin-top: 20px; }
+.preview-tariff { padding: 10px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+.mock-bottom { padding: 16px 23px; font-size: 11px; color: #999; border-top: 1px solid #ddd; }
+.bars { display: grid; gap: 13px; }
+.bar-row { display: grid; grid-template-columns: minmax(105px,1fr) minmax(70px,2fr) 105px; align-items: center; gap: 12px; font-size: 12px; }
+.bar-row > span { min-width: 0; overflow-wrap: anywhere; }
+.bar-row b { text-align: right; }
+.bar-track { height: 11px; background: #eee; border-radius: 2px; overflow: hidden; }
+.bar-fill { background: #777; height: 100%; min-width: 0; }
+@media (max-width: 1250px) { .asset-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 850px) { .kanban { grid-template-columns: repeat(4,210px); } .profile-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .role-picker span { display: none; } .role-picker select { max-width: 140px; } .asset-grid { grid-template-columns: 1fr; } .preview-stage { padding: 12px; } .bar-row { grid-template-columns: 90px minmax(70px,1fr) 65px; gap: 7px; } .calendar-grid { min-width: 770px; } .mode-switch { flex-wrap: wrap; } }
+@media (max-width: 760px) {
+  .topbar { gap: 7px; }
+  .topbar-left, .topbar-right { gap: 6px; }
+  .topbar .prototype-pill { display: none; }
+  .topbar-left #currentPageName { display: block; max-width: 98px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .role-picker select { width: 98px; max-width: 98px; font-size: 11px; }
+  .topbar-right .btn { padding: 5px 7px; min-height: 29px; }
+}
