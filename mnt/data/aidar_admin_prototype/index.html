@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Админ-панель — Прототип</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body data-page="admin">
+  <div class="shell" id="shell">
+    <aside class="sidebar" id="sidebar" aria-label="Основная навигация">
+      <div class="brand">
+        <div class="brand-name">BUSURMAN GROUP</div>
+        <div class="brand-subtitle">Администрирование сайта</div>
+      </div>
+      <nav id="sidebarNav">
+        <div class="nav-group-title">ОБЩЕЕ</div>
+        <a class="nav-link" href="#/overview" data-route="overview"><span class="nav-symbol">□</span> Обзор</a>
+        <div class="nav-group-title">КОНТЕНТ</div>
+        <a class="nav-link" href="#/programs" data-route="programs"><span class="nav-symbol">□</span> Программы и цены</a>
+        <a class="nav-link" href="#/events" data-route="events"><span class="nav-symbol">□</span> События и места</a>
+        <a class="nav-link" href="#/site" data-route="site"><span class="nav-symbol">□</span> Контент сайта</a>
+        <a class="nav-link" href="#/community" data-route="community"><span class="nav-symbol">□</span> Сообщество</a>
+        <a class="nav-link" href="#/reviews" data-route="reviews"><span class="nav-symbol">□</span> Видеоотзывы</a>
+        <a class="nav-link" href="#/media" data-route="media"><span class="nav-symbol">□</span> Медиа</a>
+        <div class="nav-group-title">ЗАЯВКИ И ОПЛАТЫ</div>
+        <a class="nav-link" href="#/leads" data-route="leads"><span class="nav-symbol">□</span> Заявки</a>
+        <a class="nav-link" href="#/payments" data-route="payments"><span class="nav-symbol">□</span> Оплаты</a>
+        <div class="nav-group-title">СИСТЕМА</div>
+        <a class="nav-link" href="#/settings" data-route="settings"><span class="nav-symbol">□</span> Настройки</a>
+      </nav>
+      <div class="sidebar-footer">ТЗ v2 · 22.10.2026<br>Прототип интерфейса</div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="icon-button mobile-menu" id="menuToggle" aria-label="Открыть меню" aria-expanded="false">☰</button>
+          <span class="topbar-label">Система управления сайтом</span>
+          <span class="topbar-separator">/</span>
+          <span id="currentPageName">Обзор</span>
+        </div>
+        <div class="topbar-right"><span class="prototype-pill">ДЕМО</span><span class="topbar-user">Администратор</span><button class="btn btn-small" type="button" data-action="logout">Выйти</button></div>
+      </header>
+      <main class="content" id="mainContent" tabindex="-1"></main>
+    </div>
+    <div id="mobileBackdrop" class="mobile-backdrop" hidden></div>
+  </div>
+  <div id="modalRoot"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

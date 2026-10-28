@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Вход — Админ-панель сайта</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body data-page="login" class="login-page">
+  <main class="login-wrap">
+    <div class="login-topline">BUSURMAN GROUP <span> / Управление сайтом</span></div>
+    <section class="login-card" aria-labelledby="login-title">
+      <div class="eyebrow">ПРОТОТИП • БЕЗ BACKEND</div>
+      <h1 id="login-title">Вход в админ-панель</h1>
+      <p class="muted">Демонстрационный вход для просмотра структуры и сценариев управления сайтом.</p>
+      <form id="loginForm" novalidate>
+        <label class="field"><span>Электронная почта</span>
+          <input id="loginEmail" name="email" type="email" autocomplete="username" placeholder="admin@demo.local" required>
+        </label>
+        <label class="field"><span>Пароль</span>
+          <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Введите пароль" required>
+        </label>
+        <div id="loginError" class="form-error" role="alert" aria-live="polite"></div>
+        <button type="submit" class="btn btn-primary btn-full">Войти <span aria-hidden="true">→</span></button>
+      </form>
+      <div class="demo-credentials">
+        <strong>Демо-доступ</strong>
+        <div><span>Логин:</span> <code>admin@demo.local</code></div>
+        <div><span>Пароль:</span> <code>demo123</code></div>
+      </div>
+    </section>
+    <p class="tiny muted login-note">Демонстрационный прототип. Проверка доступа происходит только в браузере и не подходит для реального использования.</p>
+  </main>
+</body>
+</html>
